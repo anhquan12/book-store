@@ -1,7 +1,6 @@
-package com.example.demo.entity;
+package com.example.demo.entites;
 // Generated Oct 29, 2018 8:46:38 PM by Hibernate Tools 5.2.11.Final
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 
@@ -24,7 +23,7 @@ public class Book implements java.io.Serializable {
     private int price;
     private int quantity;
     private long createdTime;
-    private int status; // 1. Đang bán 2. Dừng bán 0. Đã xoá.
+    private int status; // 1. Đang bán 2. Đã thanh toán.  0. Đã xoá.
     private String description;
 
     public Book() {
@@ -112,9 +111,9 @@ public class Book implements java.io.Serializable {
         return createdTime;
     }
 
-    public void setCreatedTime(long createdTime) {
-        this.createdTime = createdTime;
-    }
+//    public void setCreatedTime(long createdTime) {
+//        this.createdTime = createdTime;
+//    }
 
     public int getStatus() {
         return status;

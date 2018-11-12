@@ -1,6 +1,6 @@
-package com.example.demo.service;
+package com.example.demo.services;
 
-import com.example.demo.entity.Book;
+import com.example.demo.entites.Book;
 
 public interface BookService {
 

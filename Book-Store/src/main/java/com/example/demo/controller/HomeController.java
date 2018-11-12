@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
 
-import com.example.demo.entity.Book;
-import com.example.demo.repository.BookRepository;
+import com.example.demo.entites.Book;
+import com.example.demo.repository.BookDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +25,7 @@ public class HomeController {
 	private static String UPLOADED_FOLDER = "target/classes/static/uploaded/";
 
 	@Autowired
-	private BookRepository bookRepository;
+	private BookDAO bookDAO;
 //
 //
 //	private String emailAdmin = "_";
@@ -33,7 +33,7 @@ public class HomeController {
 //	private String password = "_";
 
 	@RequestMapping("/")
-	public String index() {
+	public String home() {
 		return "home";
 	}
 
@@ -57,13 +57,13 @@ public class HomeController {
 			System.err.println(ex.getMessage());
 		}
 		book.setImgUrl("/uploaded/" + myFile.getOriginalFilename());
-		bookRepository.save(book);
+		bookDAO.save(book);
 		return "redirect:/book/list";
 	}
 
 	@RequestMapping(path = "/book/edit/{id}", method = RequestMethod.GET)
 	public String editBook(int id, Model model) {
-		Optional<Book> optionalProduct = bookRepository.findById(id);
+		Optional<Book> optionalProduct = bookDAO.findById(id);
 		if (optionalProduct.isPresent()) {
 			model.addAttribute("book", optionalProduct.get());
 			return "book-form";
@@ -74,19 +74,32 @@ public class HomeController {
 
 	@RequestMapping(path = "/book/delete/{id}", method = RequestMethod.POST)
 	public String deleteBook(int id) {
-		Optional<Book> optionalProduct = bookRepository.findById(id);
+		Optional<Book> optionalProduct = bookDAO.findById(id);
 		if (optionalProduct.isPresent()) {
-			bookRepository.delete(optionalProduct.get());
+//			optionalProduct.get().setStatus(0);
+			bookDAO.delete(optionalProduct.get());
 			return "redirect:/book/list";
 		} else {
 			return "not-found";
 		}
 	}
 
+//	@RequestMapping(path = "/pay/book/{id}", method = RequestMethod.POST)
+//	public String payBook(int id) {
+//		Optional<Book> optionalProduct = bookRepository.findById(id);
+//		if (optionalProduct.isPresent()) {
+//			optionalProduct.get().setStatus(0);
+//			bookRepository.delete(optionalProduct.get());
+//			return "redirect:/book/list";
+//		} else {
+//			return "not-found";
+//		}
+//	}
+
 //	@RequestMapping(path = "/book/list", method = RequestMethod.GET)
 	@RequestMapping(path = "/", method = RequestMethod.GET)
-	public String getListBooks(Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int limit) {
-		Page<Book> pagination = bookRepository.findBooksByStatus(1, PageRequest.of(page - 1, limit));
+	public String getListBooks(Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "4") int limit) {
+		Page<Book> pagination = bookDAO.findBooksByStatus(1, PageRequest.of(page - 1, limit));
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("page", page);
 		model.addAttribute("limit", limit);

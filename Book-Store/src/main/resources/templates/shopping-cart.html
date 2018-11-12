@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+</head>
+<body>
+    <h3>Cart Infomation</h3>
+    <table border="1">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Sub Total</th>
+        </tr>
+
+        <tr th:each="item : ${session.cart}">
+            <td th:text="${item.book.bookId}"></td>
+            <td th:text="${item.book.title}"></td>
+            <td>
+                <img th:src="@{${item.book.imgUrl}}" width="80px" alt="">
+            </td>
+            <td th:text="${item.book.price}"></td>
+            <td th:text="${item.book.quantity}"></td>
+            <td th:text="${item.book.price * item.book.quantity}"></td>
+        </tr>
+    </table>
+    <br>
+    <a th:href="${'/'}">Back</a>
+    </body>
+</html>

@@ -8,6 +8,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "book", catalog = "book_ecommerce")
@@ -20,7 +21,7 @@ public class Book implements java.io.Serializable {
     private String author;
     private String publisher;
     private String category;
-    private int price;
+    private BigDecimal price;
     private int quantity;
     private long createdTime;
     private int status; // 1. Đang bán 2. Đã thanh toán.  0. Đã xoá.
@@ -30,7 +31,7 @@ public class Book implements java.io.Serializable {
         this.status = 1;
     }
 
-    public Book(String title, String imgUrl, String author, String publisher, String category, int price, int quantity, String description) {
+    public Book(String title, String imgUrl, String author, String publisher, String category,  BigDecimal price, int quantity, String description) {
         this.title = title;
         this.imgUrl = imgUrl;
         this.author = author;
@@ -42,6 +43,7 @@ public class Book implements java.io.Serializable {
         this.status = 1;
         this.description = description;
     }
+
 
     public int getBookId() {
         return bookId;
@@ -91,11 +93,11 @@ public class Book implements java.io.Serializable {
         this.category = category;
     }
 
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

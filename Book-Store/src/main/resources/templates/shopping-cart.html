@@ -1,33 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <!--<meta charset="UTF-8">-->
+    <meta charset="ISO-8859-1">
     <title>Cart</title>
 </head>
 <body>
-    <h3>Cart Infomation</h3>
+<h3>Cart Infomation</h3>
+<form th:action="@{/cart/update}" method="post">
     <table border="1">
         <tr>
+            <th>Option</th>
             <th>Id</th>
             <th>Name</th>
             <th>Image</th>
             <th>Price</th>
-            <th>Quantity</th>
+            <th>
+                Quantity
+                <input type="submit" value="update"/>
+            </th>
             <th>Sub Total</th>
         </tr>
 
         <tr th:each="item : ${session.cart}">
+            <td align="center">
+                <a th:href="${'/cart/remove/' + item.book.bookId}">X</a>
+
+            </td>
             <td th:text="${item.book.bookId}"></td>
             <td th:text="${item.book.title}"></td>
             <td>
                 <img th:src="@{${item.book.imgUrl}}" width="80px" alt="">
             </td>
             <td th:text="${item.book.price}"></td>
-            <td th:text="${item.book.quantity}"></td>
-            <td th:text="${item.book.price * item.book.quantity}"></td>
+            <td>
+                <input type="number" th:value="${item.quantity}" name="quantity" style="width: 50px;"/>
+            </td>
+            <td th:text="${item.book.price * item.quantity}"></td>
+        </tr>
+        <tr>
+            <td colspan="6">Total</td>
+            <td th:text="${total}"></td>
         </tr>
     </table>
-    <br>
-    <a th:href="${'/'}">Back</a>
-    </body>
+</form>
+<br/>
+<a th:href="${'/'}">Back</a>
+<a th:href="${'cart/checkout'}">Check Out</a>
+</body>
 </html>

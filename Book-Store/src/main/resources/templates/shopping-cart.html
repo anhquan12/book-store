@@ -10,7 +10,6 @@
 <form th:action="@{/cart/update}" method="post">
     <table border="1">
         <tr>
-            <th>Option</th>
             <th>Id</th>
             <th>Name</th>
             <th>Image</th>
@@ -20,13 +19,12 @@
                 <input type="submit" value="update"/>
             </th>
             <th>Sub Total</th>
+            <th>Option</th>
+
         </tr>
 
         <tr th:each="item : ${session.cart}">
-            <td align="center">
-                <a th:href="${'/cart/remove/' + item.book.bookId}">X</a>
 
-            </td>
             <td th:text="${item.book.bookId}"></td>
             <td th:text="${item.book.title}"></td>
             <td>
@@ -37,7 +35,12 @@
                 <input type="number" th:value="${item.quantity}" name="quantity" style="width: 50px;"/>
             </td>
             <td th:text="${item.book.price * item.quantity}"></td>
+            <td align="center">
+                <a th:href="${'/cart/remove/' + item.book.bookId}">X</a>
+
+            </td>
         </tr>
+
         <tr>
             <td colspan="6">Total</td>
             <td th:text="${total}"></td>

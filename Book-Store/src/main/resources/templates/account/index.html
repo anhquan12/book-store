@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--<meta charset="UTF-8">-->
+    <meta charset="ISO-8859-1">
+    <title>Cart</title>
+</head>
+<body>
+<h3>Account Login</h3>
+<form th:action="@{/account/login}" method="post">
+    <table border="1">
+        <tr>
+            <td>Username</td>
+            <td>
+                <input type="text" name="username"/>
+            </td>
+            <td>
+                <input type="text" name="password"/>
+            </td>
+            <td>
+                <input type="submit" value="Login"/>
+                <br/>
+                <a th:href="${'/account/register'}">Sign Up</a>
+            </td>
+        </tr>
+    </table>
+</form>
+<br/>
+<a th:href="${'/'}">Back</a>
+<a th:href="${'cart/checkout'}">Check Out</a>
+</body>
+</html>

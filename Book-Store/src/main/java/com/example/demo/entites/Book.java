@@ -24,7 +24,7 @@ public class Book implements java.io.Serializable {
     private BigDecimal price;
     private int quantity;
     private long createdTime;
-    private int status; // 1. Đang bán 2. Đã thanh toán.  0. Đã xoá.
+    private int status; // 1. Đang bán.  -1. Đã thanh toán.  0. Đã xoá.
     private String description;
 
     public Book() {

@@ -27,21 +27,21 @@ public class Orders implements java.io.Serializable {
 	private Integer id;
 	private Account account;
 	private String name;
-	private Date createdDate;
-	private byte status;
+	private long createdDate;
+	private int status; // 1. active  0. disable
 	private Set<Ordersdetail> ordersdetails = new HashSet<Ordersdetail>(0);
 
 	public Orders() {
 	}
 
-	public Orders(Account account, String name, Date createdDate, byte status) {
-		this.account = account;
-		this.name = name;
-		this.createdDate = createdDate;
-		this.status = status;
-	}
+//	public Orders(Account account, String name, long createdDate, boolean status) {
+//		this.account = account;
+//		this.name = name;
+//		this.createdDate = createdDate;
+//		this.status = status;
+//	}
 
-	public Orders(Account account, String name, Date createdDate, byte status, Set<Ordersdetail> ordersdetails) {
+	public Orders(Account account, String name, long createdDate, int status, Set<Ordersdetail> ordersdetails) {
 		this.account = account;
 		this.name = name;
 		this.createdDate = createdDate;
@@ -80,22 +80,22 @@ public class Orders implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Temporal(TemporalType.DATE)
+//	@Temporal(TemporalType.DATE)
 	@Column(name = "createdDate", nullable = false, length = 10)
-	public Date getCreatedDate() {
+	public long getCreatedDate() {
 		return this.createdDate;
 	}
 
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(long createdDate) {
 		this.createdDate = createdDate;
 	}
 
 	@Column(name = "status", nullable = false)
-	public byte getStatus() {
+	public int getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(byte status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 

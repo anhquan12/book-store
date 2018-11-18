@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 
 @Controller
 @RequestMapping("account")
@@ -29,9 +32,30 @@ public class AccountController {
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public String register(ModelMap modelMap, @ModelAttribute("account") Account account) {
+    public String register(
+            ModelMap modelMap,
+            @ModelAttribute("account") Account account) {
         account.setPassword(account.getPassword());
         accountService.create(account);
         return "redirect:../account";
     }
+
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public String login(
+            HttpServletRequest request,
+            HttpSession session,
+            ModelMap modelMap) {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        Account account = accountService.login(username, password);
+        if(account == null){
+            modelMap.put("error" , "Invalid Account");
+            return "account/index";
+        }else {
+            session.setAttribute("username" , username);
+            return "redirect:../cart";
+
+        }
+    }
+
 }
